@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Nov 10 17:38:16 2015
-
-@author: FranciscoP.Romero
-"""
 
 import codecs
 from numpy import corrcoef, transpose, arange
@@ -15,7 +10,7 @@ import matplotlib.pyplot as plt
 
 # 0. Load Data
 f = codecs.open("iquitos-train.csv", "r", "utf-8")
-states = []
+weeksdata = []
 count = 0
 for line in f:
 	if count > 0: 
@@ -23,7 +18,7 @@ for line in f:
 		row = line.replace ('"', '').split(",")
         
 		if row != []:
-			states.append(map(float, row))
+			weeksdata.append(map(float, row))
 	count += 1
 
 
@@ -31,7 +26,7 @@ for line in f:
 
 # plotting the correlation matrix
 #http://glowingpython.blogspot.com.es/2012/10/visualizing-correlation-matrices.html
-R = corrcoef(transpose(states))
+R = corrcoef(transpose(weeksdata))
 pcolor(R)
 colorbar()
 yticks(arange(0,17),range(0,17))

@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Nov 09 17:35:44 2015
 
-@author: FranciscoP.Romero
-"""
 import codecs
 import matplotlib.pyplot as plt
 import numpy
@@ -12,7 +8,7 @@ from sklearn import preprocessing
 
 # 0. Load Data
 f = codecs.open("iquitos-train.csv", "r", "utf-8")
-states = []
+weeksdata = []
 count = 0
 for line in f:
 	if count > 0: 
@@ -21,16 +17,16 @@ for line in f:
 		row.pop(0)
 		if row != []:
 			data = [el for el in row]
-			states.append(data)
+			weeksdata.append(data)
 	count += 1
 
 #1. Normalization of the data
 min_max_scaler = preprocessing.MinMaxScaler()
-states = min_max_scaler.fit_transform(states)
+weeksdata = min_max_scaler.fit_transform(weeksdata)
        
 #2. PCA Estimation
 estimator = PCA (n_components = 2)
-X_pca = estimator.fit_transform(states)
+X_pca = estimator.fit_transform(weeksdata)
 
 print(estimator.explained_variance_ratio_) 
 

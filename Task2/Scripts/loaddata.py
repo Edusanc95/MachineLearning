@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Mar 14 12:05:59 2016
 
-@author: FranciscoP.Romero
-"""
 import codecs
 def load_data(path):
         
