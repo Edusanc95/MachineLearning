@@ -1,4 +1,4 @@
-###Features
+### Features
 
 - Preparing and clean the data
 - Detect correlation among features from the dataset with PCA.
@@ -32,7 +32,7 @@ We did not delete the column 16 because although is data about precipitations an
 ![](https://raw.githubusercontent.com/Edusanc95/MachineLearning/master/Task1/images/correlation4.png)
 Finally we see a cleaner dataset with the two correlated groups that we talked about previously.
 As a final anotation, the first 4 columns (0 through 3) are not correlated at all with the rest of the database. It corresponds with the normalized difference vegetation in the 4 cardinal points, so we can say that the climate does not have a strong relation with the vegetation of the place.
-###PCA:
+### PCA:
 We can see that after each iteration in which we delete redundant data the elements are getting more grouped into 1 group, with only a few outliers, specially the week 123. We can say that the climate is very similar through the years and the enviromental behaviour does not change much.
 ![](https://raw.githubusercontent.com/Edusanc95/MachineLearning/master/Task1/images/first-iteration.png)
 
@@ -43,7 +43,7 @@ We can see that after each iteration in which we delete redundant data the eleme
 ![](https://raw.githubusercontent.com/Edusanc95/MachineLearning/master/Task1/images/fourth-iteration.png)
 
 
-@Edusanc95
-@josealejolibreros
+`<link>` : <https://github.com/Edusanc95>
+`<link>` : <https://github.com/josealejolibreros>
 
 
