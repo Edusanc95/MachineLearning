@@ -44,6 +44,7 @@ We can see that after each iteration in which we delete redundant data the eleme
 
 
 `<link>` : <https://github.com/Edusanc95>
+
 `<link>` : <https://github.com/josealejolibreros>
 
 
