@@ -4,7 +4,7 @@
 - Detect correlation among features from the dataset with PCA.
 
 # Task1.md
-#Task 1 of Machine Learning, by Eduardo Sánchez López and José Alejandro Libreros Montaño.
+# Task 1 of Machine Learning, by Eduardo Sánchez López and José Alejandro Libreros Montaño.
 
 
 
@@ -15,11 +15,11 @@
 [TOC]
 
 
-##1. Preprocessing
+## 1. Preprocessing
 We deleted all the data about identifiers in the dataset (The week and the year).
 To avoid the corruption of data, in the blank spaces we put the mean of the 3 above and 3 below rows instead of a zero (mirror).
 We considered to make a column with the mean of the min and max temperatures in a week, but at the end we decided not to do it yet.
-##2. Correlation
+## 2. Correlation
 For the study of the correlation and PCA we execute the algorithms, decide if there's something that we should fix, and then execute the algorithm again. We do this procedure until we are done.
 ![](https://raw.githubusercontent.com/Edusanc95/MachineLearning/master/Task1/images/correlation.png)
 There are some labels that are very correlated: The average temperature is very related to the maximum and minimum temperature by obvious reasons, because it's the mean between those two values, so we deleted the maximum and minimum temperatures from the dataset since it is repeated information.
