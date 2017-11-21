@@ -49,32 +49,51 @@ Colors associated with groups:
 *Meaning of each characteristic:*
 
 `0: ndvi_ne:` Pixel northeast of city centroid
+
 `1: ndvi_nw:` Pixel nortwest of city centroid
+
 `2: ndvi_se:`Pixel southeast of city centroid
+
 `3: ndvi_sw:` Pixel southwest of city centroid`
 
 *Data from NOAA’S NCEP Climate Forecast System Reanalysis.*
+
 `4: reanalysis_air_temp_k:` Mean air temperature.
+
 `5: reanalysis_avg_temp_k:` Average air temperature.
+
 `6: reanalysis_dew_point_temp_k:` Mean dew point temperature.
+
 `7: reanalysis_precip_amt_kg_per_m2:` Total precipitation.
+
 `8: reanalysis_relative_humidity_percent:` Mean relative humidity.
+
 `9: reanalysis_sat_precip_amt_mm:` Total precipitation.
+
 `10: reanalysis_specific_humidity_g_per_kg:` Mean specific humidity.
+
 `11: reanalysis_tdtr_k:` Diurnal temperature range. 
+
 
 *Data from NOAA’S GHCN daily climate data weather station measurements*
 `12: station_avg_temp_c:` Average temperature.
+
 `13: station_diur_temp_rng_c:` Diurnal temperature range.
+
 `14: station_precip_mm:` Total precipitation.
 
 
 **Labels:**
 We label them in terms of the precipitation/humidity, since the mean temperature does not change too much between the groups.
+
 - Group 1: Low precipitations/humidity
+
 - Group 2: High precipitations/humidity
+
 - Group 3: Medium precipitations/humidity
+
 - Group 4: Maximum precipation/humidity.
+
 
 The group 5 seems like an outlier that should belong in the group 2, specially since a value seems abnormally low (4.2 in row 7, precipitations in that week) which can indicate a really strange week or an error in the measure of the data. Either way, for the k-means algorithm that week (and maybe the week 60) will be consider outliers and deleted.
 The group 2 seems very similar to the group 3, but the difference is that in group 2 there is a conflict in the data of the humidity and precipitations between the two sources (Reanalysis data and the daily climate data) That data should be similar, but it is not, so maybe one of the sources committed an error in the measurement.
