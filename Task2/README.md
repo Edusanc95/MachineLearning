@@ -148,6 +148,6 @@ We can see the corelation between the temperature and specific humidity.
 From the dataset, the precipitation in that location is related to the relative humidity, which are related with the weather tropical conditions. 
 
 
-@Edusanc95
+`<link>` : <https://github.com/Edusanc95>
 
-@josealejolibreros
+`<link>` : <https://github.com/josealejolibreros>
