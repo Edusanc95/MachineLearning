@@ -109,7 +109,7 @@ year: Two factors were taken into account for this decision:
 
 - The decision tree gave too much relevancy to this feature. This is related to the previous point, we want to establish relations between the features and having a decision tree be almost solely decided by a feature was a very bad symptom, specially by a non-cyclic time feature. Nonetheless this also can gives us information, for Iquitos the correlation between total_cases and year was very positive, and in San Juan it was very negative, maybe indicating that in Iquitos the number of Dengue cases goes up each year, and in San Juan it goes down. 
 
-##3. Other considerations and comments
+## 3. Other considerations and comments
 
 All the nulls were replaced by the mean of that column. We considered to do the mean of the 3 upper and lower rows as we did in the previous tasks, but we observed better results with this approximation.
 
@@ -121,6 +121,9 @@ As a final note, we started keeping our code more tidy and working more with the
 
 
 
+The script to check the feature selection is featureSelection.py, and to check the clustering script used to delete outliers, please check HierarchicalElements.py
+
+
 
 @Edusanc95
 
@@ -130,7 +133,4 @@ As a final note, we started keeping our code more tidy and working more with the
 
 
 
-
-
-The script to check the feature selection is featureSelection.py, and to check the clustering script used to delete outliers, please check HierarchicalElements.py
 
