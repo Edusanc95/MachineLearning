@@ -1,4 +1,4 @@
-###Features
+### Features
 
 - K-means with dataset from Iquitos
 
@@ -37,4 +37,5 @@ green group has much more precipitations than the blue one.
 
 
 @Edusanc95
+
 @josealejolibreros
