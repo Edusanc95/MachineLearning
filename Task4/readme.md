@@ -64,6 +64,6 @@ Here is the cross-validation test to check visually if the 3 features used in ou
 Here we can see they fit the model nicely.
 
 
-@Edusanc95
+`<link>` : <https://github.com/Edusanc95>
 
-@josealejolibreros
+`<link>` : <https://github.com/josealejolibreros>
