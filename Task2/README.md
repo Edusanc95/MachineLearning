@@ -114,21 +114,36 @@ The data correlated is described as follows:
 Is important to highlight that the dew point temperature is related to the air temperature, that explains the first and second label in that graph.
 
 <span style="color:red">Red</span>
+
 Average temperature (°C)
+
 `ndvi_se` – Pixel southeast of city centroid
+
 `ndvi_sw` – Pixel southwest of city centroid
+
 `ndvi_ne` – Pixel northeast of city centroid
+
 `ndvi_nw` – Pixel northwest of city centroid
-Mean specific humidity
-Diurnal temperature range (°K)
-Diurnal temperature range (°C)
+
+`Mean specific humidity
+
+`Diurnal temperature range (°K)`
+
+`Diurnal temperature range (°C)`
+
 We can see the corelation between the temperature and specific humidity.
 
+
 <span style="color:cyan">Cyan</span>
+
 `Total precipitation`
+
 `Total precipitation (kg per m2)`
+
 `Mean relative humidity (percent)`
+
 `Total precipitation (mm)`
+
 
 From the dataset, the precipitation in that location is related to the relative humidity, which are related with the weather tropical conditions. 
 
