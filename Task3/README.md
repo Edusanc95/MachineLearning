@@ -36,6 +36,6 @@ The main differences between these two groups are the precipitations, the
 green group has much more precipitations than the blue one.
 
 
-@Edusanc95
+`<link>` : <https://github.com/Edusanc95>
 
-@josealejolibreros
+`<link>` : <https://github.com/josealejolibreros>
