@@ -124,10 +124,9 @@ As a final note, we started keeping our code more tidy and working more with the
 The script to check the feature selection is featureSelection.py, and to check the clustering script used to delete outliers, please check HierarchicalElements.py
 
 
+`<link>` : <https://github.com/Edusanc95>
 
-@Edusanc95
-
-@josealejolibreros
+`<link>` : <https://github.com/josealejolibreros>
 
 
 
