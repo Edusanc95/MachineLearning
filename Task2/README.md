@@ -1,4 +1,4 @@
-###Features
+### Features
 
 - Simple, average and complete approach clustering
 - Clustering with the characteristics
@@ -148,4 +148,6 @@ We can see the corelation between the temperature and specific humidity.
 From the dataset, the precipitation in that location is related to the relative humidity, which are related with the weather tropical conditions. 
 
 
+@Edusanc95
 
+@josealejolibreros
