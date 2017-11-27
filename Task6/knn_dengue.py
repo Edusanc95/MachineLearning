@@ -58,9 +58,9 @@ iqWeeksTest.reset_index(inplace=True)
 sjWeeksTest.reset_index(inplace=True)
 
 # features and labels
-X = iqWeeks[iqFeatures]
-y = iqWeeks['total_cases']
-Z = iqWeeksTest[iqFeatures]
+X = iqWeeks[iqFeatures] #Training
+y = iqWeeks['total_cases'] #Target
+Z = iqWeeksTest[iqFeatures] #Test
 
 # x axis for plotting
 import numpy as np
