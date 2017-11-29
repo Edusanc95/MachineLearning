@@ -80,6 +80,7 @@ for i, weights in enumerate(['uniform', 'distance']):
 n_neighbors = 3 # BEST PARAMETER as in the crossvalidation test
 weights='distance'
 knn = neighbors.KNeighborsRegressor(n_neighbors, weights=weights)
+
 y_pred = knn.fit(X,y).predict(Z)
     
 plt.subplot(2, 1, i + 1)
