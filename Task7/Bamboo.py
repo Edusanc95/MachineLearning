@@ -26,6 +26,7 @@ A Bamboo object contains:
 from Report import Report
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsRegressor
+from sklearn.ensemble import RandomForestRegressor
 
 class Bamboo:
     
@@ -77,6 +78,7 @@ class Bamboo:
     def setupRegressor(self, 
                        criterion='mae', 
                        max_depth=0,
+                       n_estimators=0,
                        n_neighbors=0,
                        random_state=0, 
                        mode='DecisionTree', 
@@ -87,7 +89,11 @@ class Bamboo:
                                               random_state=random_state)
         if mode == 'KNN':
             regressor = KNeighborsRegressor(n_neighbors, weights=weights)
-        
+            
+        if mode == 'RandomForest':
+            regressor = RandomForestRegressor(n_estimators=n_estimators, max_depth = max_depth, 
+                                             criterion='mae', random_state=random_state)
+           
         regressor.fit(self.dataFrame[self.features], self.dataFrame[self.target])
         self.regressor = regressor
     

@@ -26,6 +26,7 @@ from scipy.stats.stats import pearsonr
 
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsRegressor
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
 
 from sklearn.cross_validation import cross_val_score
@@ -150,13 +151,19 @@ def computeMax(bamboo):
 Function used to check the most desirable depth with a CrossValidation method
 '''
 
-def crossValidation(bamboo, mode='DecisionTree', weights='uniform', min_range=2,
-                                                                    max_range=30,
-                                                                    printGraph=True):
+def crossValidation(bamboo, mode='DecisionTree', weights='uniform',
+                                                n_estimators=0,
+                                                min_range=2,
+                                                max_range=30,
+                                                printGraph=True,
+                                                criterion='mae'):
     total_scores = []
 
     if mode == 'DecisionTree':
             print 'Decision Tree CV test'
+    
+    elif mode == 'RandomForest':
+            print 'Random Forest CV test with '+str(n_estimators)+' n_estimators'
             
     elif mode == 'KNN':
             print 'KNN CV test with '+weights+' weight'
@@ -164,6 +171,12 @@ def crossValidation(bamboo, mode='DecisionTree', weights='uniform', min_range=2,
     for i in range(min_range, max_range):
         if mode == 'DecisionTree':
             regressor = DecisionTreeRegressor(max_depth=i)
+            regressor.fit(bamboo.dataFrame[bamboo.features], 
+                          bamboo.dataFrame[bamboo.target])
+        
+        elif mode == 'RandomForest':
+            regressor = RandomForestRegressor(n_estimators=n_estimators, max_depth = i, 
+                                             criterion=criterion, random_state=0)
             regressor.fit(bamboo.dataFrame[bamboo.features], 
                           bamboo.dataFrame[bamboo.target])
             

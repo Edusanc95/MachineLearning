@@ -223,7 +223,7 @@ print sj_train.features
 min_range = 2
 max_range = 100
 depths = []
-
+'''
     #KNN
 for weight in ['uniform','distance']:
     sj_knn_score = rp.crossValidation(sj_train, mode='KNN', weights=weight, 
@@ -249,7 +249,28 @@ knn_sj_weigth = 'uniform'
 sj_train.setupRegressor(n_neighbors=knn_sj_neighbors,
                         weights='uniform',
                         mode='KNN')
+'''
+#More estimators better result, but 4 seems good for the computation time
+sj_rf_score = rp.crossValidation(sj_train, mode='RandomForest',n_estimators=4,
+                   min_range=min_range, max_range=max_range, criterion='mae')
 
+max_score_rf_sj = 100
+depth = min_range
+
+#Best max score
+for score in sj_rf_score:
+    if score < max_score_rf_sj:
+        max_score_rf_sj = score
+        max_depth = depth
+    depth = depth + 1
+depths.append([max_depth,max_score_rf_sj])
+#With Knn we get a worse CV score than with random forest, so we roll with that
+
+print depths
+df_sj_depth=2
+sj_train.setupRegressor(max_depth=df_sj_depth,
+                        mode='RandomForest',
+                        n_estimators=4)
 sj_pred = sj_train.regressor.predict(sj_test.dataFrame[sj_train.features])
 
 sj_pred = sj_pred.astype(int)
