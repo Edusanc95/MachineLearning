@@ -7,6 +7,7 @@ Created on Tue Nov 28 23:11:16 2017
 
 import RedPandas as rp
 import numpy as np
+import pandas as pd
 
 den_train = rp.loadDataCSV('dengue_train.csv', target='total_cases', 
                 null_target_procedure = rp.DELETE_ROW,
@@ -73,7 +74,8 @@ max_range = 30
 depths = []
 
 #Multiple CV tests done since it's random so we get the most frequent depth
-for x in range(0,30):
+#Range is one so it doesn't take ages to compile, but for the analysis it was at 30
+for x in range(0,1):
     iq_tree_score = rp.crossValidation(iq_train, mode='DecisionTree', 
                                        min_range=min_range, max_range=max_range,
                                        printGraph=False)
@@ -110,6 +112,7 @@ for report in iq_train.reports:
     report.showReport()
 
 #Feature selection with the previous tests
+#TODO automatization
 iq_train.features = []
 iq_train.features.append('weekofyear')
 iq_train.features.append('reanalysis_specific_humidity_g_per_kg')
@@ -118,7 +121,7 @@ iq_train.features.append('station_avg_temp_c')
 print iq_train.features
 
 min_range = 2
-max_range = 100
+max_range = 458
 depths = []
 
     #KNN
@@ -149,11 +152,116 @@ iq_train.setupRegressor(n_neighbors=knn_iq_neighbors,
 
 iq_pred = iq_train.regressor.predict(iq_test.dataFrame[iq_train.features])
 
-print iq_pred
+iq_pred = iq_pred.astype(int)
+d = {'city': pd.Series(iq_test.dataFrame['city']), 'year': pd.Series(iq_test.dataFrame['year']),
+         'weekofyear' : pd.Series(iq_test.dataFrame['weekofyear']), 'total_cases' : pd.Series(iq_pred)}
+iqdf = pd.DataFrame(d)
 
+#San Juan analysis
+'''
+sj_train.features.remove('year')
+sj_train.features.remove('total_cases')
+sj_train.features.remove('city')
+sj_train.features.remove('week_start_date')
+'''
+#CV tests
+    #Decision tree
+    #This is mostly for feature selection
+min_range = 2
+max_range = 30
+depths = []
 
+#Multiple CV tests done since it's random so we get the most frequent depth
 
+for x in range(0,1):
+    sj_tree_score = rp.crossValidation(sj_train, mode='DecisionTree', 
+                                       min_range=min_range, max_range=max_range,
+                                       printGraph=False)
 
+    max_score_tree_sj = 100
+    depth = min_range
+
+    #Best max score
+    for score in sj_tree_score:
+        if score < max_score_tree_sj:
+            max_score_tree_sj = score
+            max_depth = depth
+        depth = depth + 1
+    depths.append([max_depth,max_score_tree_sj])
+
+#We get the depth that appears more
+counts = np.bincount([i[0] for i in depths])
+#For reference, is almost always 2 for this particular study
+
+print depths
+dtree_sj_depth = np.argmax(counts)
+
+#Final depth
+print 'Depth decision tree san juan '+str(dtree_sj_depth)
+
+#Setting up regressor. 
+sj_train.setupRegressor(criterion='mae', 
+                        max_depth=dtree_sj_depth,
+                        random_state=0, 
+                        mode='DecisionTree')
+
+sj_train.reportInfoRelevancies()
+for report in sj_train.reports:
+    report.showReport()
+
+#Feature selection with the previous tests
+#TODO automatization
+sj_train.features = []
+sj_train.features.append('weekofyear')
+sj_train.features.append('ndvi_nw')
+sj_train.features.append('reanalysis_dew_point_temp_k')
+sj_train.features.append('reanalysis_specific_humidity_g_per_kg')
+sj_train.features.append('station_min_temp_c')
+
+print sj_train.features
+
+min_range = 2
+max_range = 100
+depths = []
+
+    #KNN
+for weight in ['uniform','distance']:
+    sj_knn_score = rp.crossValidation(sj_train, mode='KNN', weights=weight, 
+                   min_range=min_range, max_range=max_range)
+
+    max_score_knn_sj = 100
+    depth = min_range
+
+    #Best max score
+    for score in sj_knn_score:
+        if score < max_score_knn_sj:
+            max_score_knn_sj = score
+            max_depth = depth
+        depth = depth + 1
+    depths.append([max_depth,max_score_knn_sj, weight])
+
+#We get the depth that appears more
+print depths
+#TODO im tired and it's late I will automatize this later
+knn_sj_neighbors = 22
+knn_sj_weigth = 'uniform'
+    
+sj_train.setupRegressor(n_neighbors=knn_sj_neighbors,
+                        weights='uniform',
+                        mode='KNN')
+
+sj_pred = sj_train.regressor.predict(sj_test.dataFrame[sj_train.features])
+
+sj_pred = sj_pred.astype(int)
+d = {'city': pd.Series(sj_test.dataFrame['city']), 'year': pd.Series(sj_test.dataFrame['year']),
+         'weekofyear' : pd.Series(sj_test.dataFrame['weekofyear']), 'total_cases' : pd.Series(sj_pred)}
+
+sjdf = pd.DataFrame(d)
+
+result = sjdf.append(iqdf)
+
+result.to_csv('result_dengue.csv')
+#After this I still have to modify the csv by hand so I have to check it
 
 
 

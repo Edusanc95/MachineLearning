@@ -1,0 +1,2 @@
+Adding features basing on the correlation between the features and the total cases ups the error by little. The relevancies from the regressors seems to give better results.
+In Iquitos with k=99 I got a 25.8317 and with k=241 I got 25.8702, even thou the CV test said it was better to take it. I also got a 25.8413 but adding 'reanalysis_dew_point_temp_k' in Iquitos, with k=99.
