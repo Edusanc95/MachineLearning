@@ -1,2 +1,15 @@
 Adding features basing on the correlation between the features and the total cases ups the error by little. The relevancies from the regressors seems to give better results.
 In Iquitos with k=99 I got a 25.8317 and with k=241 I got 25.8702, even thou the CV test said it was better to take it. I also got a 25.8413 but adding 'reanalysis_dew_point_temp_k' in Iquitos, with k=99.
+
+Important article about forests.
+https://www.researchgate.net/post/How_to_determine_the_number_of_trees_to_be_generated_in_Random_Forest_algorithm
+
+SJ with RF and no KNN Depth=2 Estimators=4 we got 27.3606. I believe that RF or DT with low depth are not a good regression method, mainly because is too generic and the error increases too much. If we turn up the depth,
+in this particular case, we get way too much overfitting that turns up to be even worse. Maybe the problem was the CV test on this particular case.
+
+SJ with NB (And Gaussian NB) we obtained 30.0577, the worst result so far.
+
+For science I submitted with BernoulliNB and we got a 35.0625, which makes sense because of how this method works, since it only estimates if an event occured or not. Is not good for regression. In this case, 
+it only predicted 3 and 6 for total_cases, which is obviously wrong.
+
+Naive Bayes turned out to be a disaster, which again makes a lot of sense since is not a good algorithm for making regression.

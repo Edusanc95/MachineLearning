@@ -223,7 +223,7 @@ print sj_train.features
 min_range = 2
 max_range = 100
 depths = []
-'''
+
     #KNN
 for weight in ['uniform','distance']:
     sj_knn_score = rp.crossValidation(sj_train, mode='KNN', weights=weight, 
@@ -249,6 +249,7 @@ knn_sj_weigth = 'uniform'
 sj_train.setupRegressor(n_neighbors=knn_sj_neighbors,
                         weights='uniform',
                         mode='KNN')
+
 '''
 #More estimators better result, but 4 seems good for the computation time
 sj_rf_score = rp.crossValidation(sj_train, mode='RandomForest',n_estimators=4,
@@ -271,6 +272,21 @@ df_sj_depth=2
 sj_train.setupRegressor(max_depth=df_sj_depth,
                         mode='RandomForest',
                         n_estimators=4)
+'''
+
+'''
+#Create a Gaussian Classifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import BernoulliNB
+# Parametrization
+# http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html
+model = BernoulliNB()
+# training the model
+model.fit(sj_train.dataFrame[sj_train.features],sj_train.dataFrame[sj_train.target])
+# prediction with the same data
+sj_pred = model.predict(sj_test.dataFrame[sj_train.features])
+'''
 sj_pred = sj_train.regressor.predict(sj_test.dataFrame[sj_train.features])
 
 sj_pred = sj_pred.astype(int)
