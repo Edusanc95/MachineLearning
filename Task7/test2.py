@@ -29,10 +29,8 @@ for div in den_train_div:
     elif div.dataFrame['city'].iloc[0] == 'sj':
         sj_train = div
       
-    div.reportBasicInfo()
+    div.reportBasicInfo(printOnScreen=False)
     
-    for report in div.reports:
-        report.showReport()
 
 #Dividing the test into 2 dataframes, Iquitos and San Juan
         
@@ -46,10 +44,7 @@ for div in den_test_div:
     elif div.dataFrame['city'].iloc[0] == 'sj':
         sj_test = div
       
-    div.reportBasicInfo()
-    
-    for report in div.reports:
-        report.showReport()
+    div.reportBasicInfo(printOnScreen=False)
     
 
 #Outlier cleaning done in Task5
@@ -108,8 +103,6 @@ iq_train.setupRegressor(criterion='mae',
                         mode='DecisionTree')
 
 iq_train.reportInfoRelevancies()
-for report in iq_train.reports:
-    report.showReport()
 
 #Feature selection with the previous tests
 #TODO automatization
@@ -121,9 +114,9 @@ iq_train.features.append('station_avg_temp_c')
 print iq_train.features
 
 min_range = 2
-max_range = 458
+max_range = 40
 depths = []
-
+'''
     #KNN
 for weight in ['uniform','distance']:
     iq_knn_score = rp.crossValidation(iq_train, mode='KNN', weights=weight, 
@@ -141,14 +134,36 @@ for weight in ['uniform','distance']:
     depths.append([max_depth,max_score_knn_iq, weight])
 
 #We get the depth that appears more
-print depths
-#TODO im tired and it's late I will automatize this later
+
 knn_iq_neighbors = 99
 knn_iq_weigth = 'uniform'
     
 iq_train.setupRegressor(n_neighbors=knn_iq_neighbors,
                         weights='uniform',
                         mode='KNN')
+'''
+
+#More estimators better result, but 4 seems good for the computation time
+iq_rf_score = rp.crossValidation(iq_train, mode='RandomForest',n_estimators=4,
+                   min_range=min_range, max_range=max_range, criterion='mae')
+
+max_score_rf_iq = 100
+depth = min_range
+
+#Best max score
+for score in iq_rf_score:
+    if score < max_score_rf_iq:
+        max_score_rf_iq = score
+        max_depth = depth
+    depth = depth + 1
+depths.append([max_depth,max_score_rf_iq])
+#With Knn we get a worse CV score than with random forest, so we roll with that
+
+print depths
+df_iq_depth=None
+iq_train.setupRegressor(max_depth=df_iq_depth,
+                        mode='RandomForest',
+                        n_estimators=10000)
 
 iq_pred = iq_train.regressor.predict(iq_test.dataFrame[iq_train.features])
 
@@ -206,8 +221,6 @@ sj_train.setupRegressor(criterion='mae',
                         mode='DecisionTree')
 
 sj_train.reportInfoRelevancies()
-for report in sj_train.reports:
-    report.showReport()
 
 #Feature selection with the previous tests
 #TODO automatization
@@ -221,9 +234,9 @@ sj_train.features.append('station_min_temp_c')
 print sj_train.features
 
 min_range = 2
-max_range = 100
+max_range = 40
 depths = []
-
+'''
     #KNN
 for weight in ['uniform','distance']:
     sj_knn_score = rp.crossValidation(sj_train, mode='KNN', weights=weight, 
@@ -249,7 +262,6 @@ knn_sj_weigth = 'uniform'
 sj_train.setupRegressor(n_neighbors=knn_sj_neighbors,
                         weights='uniform',
                         mode='KNN')
-
 '''
 #More estimators better result, but 4 seems good for the computation time
 sj_rf_score = rp.crossValidation(sj_train, mode='RandomForest',n_estimators=4,
@@ -268,11 +280,10 @@ depths.append([max_depth,max_score_rf_sj])
 #With Knn we get a worse CV score than with random forest, so we roll with that
 
 print depths
-df_sj_depth=2
+df_sj_depth=None
 sj_train.setupRegressor(max_depth=df_sj_depth,
                         mode='RandomForest',
-                        n_estimators=4)
-'''
+                        n_estimators=10000)
 
 '''
 #Create a Gaussian Classifier

@@ -39,7 +39,7 @@ class Bamboo:
         self.reports = []
         self.regressor = None
         
-    def reportBasicInfo(self):
+    def reportBasicInfo(self, printOnScreen=True):
         
         featuresType = []
         featuresMin = []
@@ -65,14 +65,18 @@ class Bamboo:
                     headers=["Feature","Type","Min","Max","Mean","Num Nulls"],
                     typeReport='Basic')
         
+        if printOnScreen:
+            report.showReport();
         self.reports.append(report)
     
-    def reportInfoRelevancies(self):
+    def reportInfoRelevancies(self, printOnScreen=True):
         name = 'RelevanciesInfo'+str(self.numberOfReports('Relevancies')+1)
         report = Report(name,
                     cols = zip(self.features, self.regressor.feature_importances_),
                     headers=["Feature","Relevancy"],
                     typeReport='Relevancies')
+        if printOnScreen:
+            report.showReport();
         self.reports.append(report)
     
     def setupRegressor(self, 

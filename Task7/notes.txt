@@ -7,9 +7,13 @@ https://www.researchgate.net/post/How_to_determine_the_number_of_trees_to_be_gen
 SJ with RF and no KNN Depth=2 Estimators=4 we got 27.3606. I believe that RF or DT with low depth are not a good regression method, mainly because is too generic and the error increases too much. If we turn up the depth,
 in this particular case, we get way too much overfitting that turns up to be even worse. Maybe the problem was the CV test on this particular case.
 
-SJ with NB (And Gaussian NB) we obtained 30.0577, the worst result so far.
+SJ with NB (And Gaussian NB) we obtained 30.0577, the worst result so far. This makes sense since our data is not in a normal distribution.
 
 For science I submitted with BernoulliNB and we got a 35.0625, which makes sense because of how this method works, since it only estimates if an event occured or not. Is not good for regression. In this case, 
 it only predicted 3 and 6 for total_cases, which is obviously wrong.
 
 Naive Bayes turned out to be a disaster, which again makes a lot of sense since is not a good algorithm for making regression.
+
+A CV test for RF doesn't make sense, so we are going to study them with various depths doing our own MAE tests.
+
+The best result we got was with RF with max_depth 3 in Iquitos and max_depth 5 in San Juan with a 25.25XX. Note we didn't take into account station_avg_temp_c for Iquitos in this case. 
