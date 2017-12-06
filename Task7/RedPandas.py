@@ -147,6 +147,33 @@ def computeMax(bamboo):
     plt.ylabel('mae')
     plt.show()
 
+def computeErrorMeasure(bamboo, printGraph=True):
+    from sklearn.model_selection import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(bamboo.dataFrame[bamboo.features], 
+                                                    bamboo.dataFrame[bamboo.target], 
+                                                    test_size=0.4)
+
+    bamboo.regressor.fit(X_train, y_train)
+
+    # Test
+    y_pred = bamboo.regressor.predict(X_test)
+
+    # metrics calculation 
+    from sklearn.metrics import mean_absolute_error
+    mae = mean_absolute_error(y_test,y_pred)
+    print "Error Measure ", mae
+
+    if printGraph:
+        import matplotlib.pyplot as plt
+        xx = np.stack(i for i in range(len(y_test)))
+        plt.plot(xx, y_test, c='r', label='Data')
+        plt.plot(xx, y_pred, c='b', label='Prediction')
+        plt.axis('tight')
+        plt.legend()
+        plt.title("Prediction vs Data")
+
+        plt.show()
+    
 '''
 Function used to check the most desirable depth with a CrossValidation method
 '''
