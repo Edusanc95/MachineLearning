@@ -110,6 +110,7 @@ iq_train.features = []
 iq_train.features.append('weekofyear')
 iq_train.features.append('reanalysis_specific_humidity_g_per_kg')
 iq_train.features.append('station_avg_temp_c')
+iq_train.features.append('reanalysis_dew_point_temp_k')
 
 print iq_train.features
 
@@ -143,6 +144,7 @@ iq_train.setupRegressor(n_neighbors=knn_iq_neighbors,
                         mode='KNN')
 '''
 
+'''
 #More estimators better result, but 4 seems good for the computation time
 iq_rf_score = rp.crossValidation(iq_train, mode='RandomForest',n_estimators=4,
                    min_range=min_range, max_range=max_range, criterion='mae')
@@ -160,10 +162,12 @@ depths.append([max_depth,max_score_rf_iq])
 #With Knn we get a worse CV score than with random forest, so we roll with that
 
 print depths
-df_iq_depth=None
+'''
+
+df_iq_depth=5
 iq_train.setupRegressor(max_depth=df_iq_depth,
                         mode='RandomForest',
-                        n_estimators=10000)
+                        n_estimators=1000)
 
 iq_pred = iq_train.regressor.predict(iq_test.dataFrame[iq_train.features])
 
@@ -263,6 +267,7 @@ sj_train.setupRegressor(n_neighbors=knn_sj_neighbors,
                         weights='uniform',
                         mode='KNN')
 '''
+'''
 #More estimators better result, but 4 seems good for the computation time
 sj_rf_score = rp.crossValidation(sj_train, mode='RandomForest',n_estimators=4,
                    min_range=min_range, max_range=max_range, criterion='mae')
@@ -280,10 +285,11 @@ depths.append([max_depth,max_score_rf_sj])
 #With Knn we get a worse CV score than with random forest, so we roll with that
 
 print depths
-df_sj_depth=None
+'''
+df_sj_depth=5
 sj_train.setupRegressor(max_depth=df_sj_depth,
                         mode='RandomForest',
-                        n_estimators=10000)
+                        n_estimators=1000)
 
 '''
 #Create a Gaussian Classifier
