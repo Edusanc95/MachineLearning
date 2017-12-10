@@ -1,6 +1,0 @@
-In Bamboo.py, it has been used the sklearn BaggingRegressor, with KNN as base estimator, and random state.
-
-It has been used also the GradientBoostingRegressor, with the MAE criterion and the deep given by deep decision tree, 
-according to each city, and a random state. 
-
-With BaggingRegressor, it was obtained a score 25.9952 and with GradientBoostingRegressor, it was obtained 26.8582 error percentage.

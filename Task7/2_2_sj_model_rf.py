@@ -69,7 +69,9 @@ sj_train.features.append('weekofyear')
 sj_train.features.append('ndvi_nw')
 sj_train.features.append('reanalysis_dew_point_temp_k')
 sj_train.features.append('reanalysis_specific_humidity_g_per_kg')
-#sj_train.features.append('station_min_temp_c')
+sj_train.features.append('station_min_temp_c')
+
+rp.correlationFeaturesTarget(sj_train)
 
 print sj_train.features
 
