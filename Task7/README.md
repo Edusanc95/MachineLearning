@@ -59,7 +59,7 @@ The best result we got in the entire competition was a 24.9375 that we got with 
 Since we hit a roadblock with this theory, we decided to go back and check once again the feature election. First we studied if it was possible to delete features in San Juan, in which we have 5, we tarted studying the least relevant feature in the Decision Tree test, which was `station_min_temp_c`.
 For that we studied the correlation with the other selected features, if it was too correlated to any of hose it will be an easy ditch, as we can see in this graph.
 
-![](https://raw.githubusercontent.com/Edusanc95/MachineLearning/master/Task7/images/correlations-features-vs-target.png)
+![](https://raw.githubusercontent.com/Edusanc95/MachineLearning/master/Task7/correlations-features-vs-target.png)
 
 
 For our surprise this upped the error up to 25.6779, so we tried again keeping "station_min_temp_c” but deleting `analysis_dew_point_temp_k `. This ALSO increased the error up to 25.8245.
